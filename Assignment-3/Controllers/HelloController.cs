@@ -20,7 +20,7 @@ namespace Assignment_3.Controllers
         public IActionResult GetHello()
         {
             var message = _helloSerivice.GetMessage();
-            return Ok(message);
+            return Ok(new {message});
         }
     }
 }
