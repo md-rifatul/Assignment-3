@@ -44,7 +44,7 @@ app.MapGet("/hello", () =>
 {
     return Results.Json(new
     {
-        message = "Hello World!",
+        message = "Hello World!"
     });
 })
 .RequireRateLimiting("Fixed");
