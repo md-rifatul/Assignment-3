@@ -1,5 +1,3 @@
-using Assignment_3.Services;
-using Assignment_3.Services.IServices;
 using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,12 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//register service(DI)
-builder.Services.AddScoped<IHelloSerivice, HelloService>();
 
 
 //Rate Limiting
@@ -43,6 +38,17 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseRateLimiter();
+
+
+app.MapGet("/hello", () =>
+{
+    return Results.Json(new
+    {
+        message = "Hello World!",
+    });
+})
+.RequireRateLimiting("Fixed");
+
 
 app.MapControllers();
 
